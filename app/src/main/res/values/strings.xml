@@ -4,4 +4,15 @@
     <string name="close">Close</string>
     <string name="no_data">No data</string>
     <string name="todo">TODO</string>
+    <string-array name="depenseCategorie">
+        <item>Logement</item>
+        <item>Alimentation</item>
+        <item>Autres necessites</item>
+        <item>Loisirs</item>
+        <item>Autres</item>
+    </string-array>
+    <string-array name="gainCategorie">
+        <item>Principal</item>
+        <item>Secondaire</item>
+    </string-array>
 </resources>

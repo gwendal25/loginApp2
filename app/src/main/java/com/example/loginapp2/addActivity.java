@@ -25,11 +25,12 @@ public class addActivity extends AppCompatActivity {
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DBhelper DataHelper = new DBhelper(addActivity.this);
                 int pages = Integer.valueOf(pages_input.getText().toString().trim());
-                DataHelper.addBook(title_input.getText().toString().trim(),
-                        author_input.getText().toString().trim(),
-                        pages);
+                String title = title_input.getText().toString().trim();
+                String author = author_input.getText().toString().trim();
+
+                DBhelper DataHelper = new DBhelper(addActivity.this);
+                DataHelper.addBook(title, author, pages);
                 //finish();
             }
         });

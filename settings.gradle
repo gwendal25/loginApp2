@@ -1,2 +1,3 @@
+include ':wearmodule'
 include ':app'
 rootProject.name = "loginApp2"

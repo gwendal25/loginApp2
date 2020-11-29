@@ -6,6 +6,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ public class navigationActivity extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.navView);
+
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
@@ -35,14 +37,27 @@ public class navigationActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch(item.getItemId()){
-                    case R.id.item1:
-                        Toast.makeText(navigationActivity.this, "item1", Toast.LENGTH_SHORT).show();
+                    case R.id.home:
+                        Toast.makeText(navigationActivity.this, "Home", Toast.LENGTH_SHORT).show();
                         return true;
-                    case R.id.item2:
-                        Toast.makeText(navigationActivity.this, "item2", Toast.LENGTH_SHORT).show();
+                    case R.id.depenses:
+                        Intent depenseIntent = new Intent(navigationActivity.this, depenseActivity.class);
+                        startActivity(depenseIntent);
+                        Toast.makeText(navigationActivity.this, "Depenses", Toast.LENGTH_SHORT).show();
                         return true;
-                    case R.id.item3:
-                        Toast.makeText(navigationActivity.this, "item3", Toast.LENGTH_SHORT).show();
+                    case R.id.revenus:
+                        Toast.makeText(navigationActivity.this, "Revenus", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.solde:
+                        Toast.makeText(navigationActivity.this, "Solde", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.cashflow:
+                        Intent intent = new Intent(navigationActivity.this, addDepense.class);
+                        startActivity(intent);
+                        Toast.makeText(navigationActivity.this, "Cashflow", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.logout:
+                        Toast.makeText(navigationActivity.this, "Logout", Toast.LENGTH_SHORT).show();
                         return true;
                 }
                 return true;

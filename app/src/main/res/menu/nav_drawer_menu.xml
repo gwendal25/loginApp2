@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/item1"
-        android:title="Item 1"></item>
+        android:id="@+id/home"
+        android:title="Home"></item>
     <item
-        android:id="@+id/item2"
-        android:title="Item 2"></item>
+        android:id="@+id/depenses"
+        android:title="Depenses"></item>
     <item
-        android:id="@+id/item3"
-        android:title="Item 3"></item>
+        android:id="@+id/revenus"
+        android:title="Revenus"></item>
+    <item
+        android:id="@+id/solde"
+        android:title="Solde"></item>
+    <item
+        android:id="@+id/cashflow"
+        android:title="Cashflow"></item>
+    <item
+        android:id="@+id/logout"
+        android:title="Logout"></item>
 </menu>
