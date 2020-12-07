@@ -56,30 +56,31 @@ public class navigationActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch(item.getItemId()){
                     case R.id.home:
+                        //TODO : make home
                         Toast.makeText(navigationActivity.this, "Home", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.depenses:
                         Intent depenseIntent = new Intent(navigationActivity.this, depenseActivity.class);
                         startActivity(depenseIntent);
-                        //Toast.makeText(navigationActivity.this, "Depenses", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.revenus:
+                        //TODO : make revenus
                         Toast.makeText(navigationActivity.this, "Revenus", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.solde:
+                        //TODO : make solde
                         Toast.makeText(navigationActivity.this, "Solde", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.cashflow:
                         Intent intent = new Intent(navigationActivity.this, addDepense.class);
                         startActivity(intent);
-                        //Toast.makeText(navigationActivity.this, "Cashflow", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.converter:
                         Intent converterIntent = new Intent(navigationActivity.this, deviseConverterActivity.class);
                         startActivity(converterIntent);
-                        //Toast.makeText(navigationActivity.this, "converter", Toast.LENGTH_SHORT).show();
                     case R.id.logout:
-                        Toast.makeText(navigationActivity.this, "Logout", Toast.LENGTH_SHORT).show();
+                        Intent logoutIntent = new Intent(navigationActivity.this, MainActivity.class);
+                        startActivity(logoutIntent);
                         return true;
                 }
                 return true;
