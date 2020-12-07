@@ -18,7 +18,6 @@ public class depenseActivity extends AppCompatActivity {
 
     RecyclerView depenseView;
     FloatingActionButton add_button;
-
     CustomCashAdapter adapter;
     DBCashHelper dataHelper;
     ArrayList<String> depense_id, depense_date, depense_valeur, depense_categorie, depense_desc;
@@ -28,17 +27,28 @@ public class depenseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_depense);
 
+        initViews();
+        initValues();
+        initDataButton();
+        initOthers();
+        storeDataInArrays();
+        initDepenseViews();
+    }
+
+    public void initViews(){
         depenseView = findViewById(R.id.depense_recycler_view);
         add_button = findViewById(R.id.add_depense_button);
+    }
 
-        dataHelper = new DBCashHelper(depenseActivity.this);
-
+    public void initValues(){
         depense_id = new ArrayList<>();
         depense_date = new ArrayList<>();
         depense_valeur = new ArrayList<>();
         depense_categorie = new ArrayList<>();
         depense_desc = new ArrayList<>();
+    }
 
+    public void initDataButton(){
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,12 +56,16 @@ public class depenseActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
 
-        storeDataInArrays();
-
+    public void initDepenseViews(){
         adapter = new CustomCashAdapter(depenseActivity.this, depense_id, depense_date, depense_valeur, depense_categorie, depense_desc);
         depenseView.setAdapter(adapter);
         depenseView.setLayoutManager(new LinearLayoutManager(depenseActivity.this));
+    }
+
+    public void initOthers(){
+        dataHelper = new DBCashHelper(depenseActivity.this);
     }
 
     public void storeDataInArrays(){

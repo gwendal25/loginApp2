@@ -27,8 +27,8 @@ public class addDepense extends AppCompatActivity implements AdapterView.OnItemS
     EditText description;
     Button makeTransactionButton;
 
-    String itemDropDown;
-    String itemRadio;
+    String itemDropDown = "";
+    String itemRadio = "";
 
 
     @Override
@@ -36,64 +36,20 @@ public class addDepense extends AppCompatActivity implements AdapterView.OnItemS
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_depense);
 
-        depenseGroup = (RadioGroup)findViewById(R.id.radioGroup);
-        valeur_euros = (EditText)findViewById(R.id.valeur_euros_input);
-        depensesSpinner = (Spinner)findViewById(R.id.spDepenses);
-        description = (EditText)findViewById(R.id.desc_input);
-        makeTransactionButton = (Button)findViewById(R.id.makeTransaction);
-
-        itemRadio = "";
+        initViews();
         makeCashFlowList(R.array.gainCategorie);
+        initDepenseGroup();
+        initTransactionButton();
+    }
 
-        depenseGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(checkedId == R.id.gain_button){
-                    itemRadio = "gain";
-                    makeCashFlowList(R.array.gainCategorie);
-                }
-                else if(checkedId == R.id.depense_button){
-                    itemRadio = "depense";
-                    makeCashFlowList(R.array.depenseCategorie);
-                }
-            }
-        });
 
-        makeTransactionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //getting the date in a string
-                Date currentTime = Calendar.getInstance().getTime();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
-                String currentDate = sdf.format(currentTime);
 
-                String descriptionText = description.getText().toString().trim();
-
-                //getting an integer value
-                String valeurString = valeur_euros.getText().toString().trim();
-                if(valeurString.isEmpty()){
-                    Toast.makeText(addDepense.this, "valeur en euros vide", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                int valeur = Integer.valueOf(valeurString);
-
-                DBCashHelper dataHelper = new DBCashHelper(addDepense.this);
-
-                switch(itemRadio){
-                    case "gain":
-                        dataHelper.addGain(currentDate, valeur, itemDropDown, descriptionText);
-                        //Toast.makeText(addDepense.this, "ajout de gain réussi", Toast.LENGTH_SHORT).show();
-                        break;
-                    case "depense":
-                        dataHelper.addDepense(currentDate, valeur, itemDropDown, descriptionText);
-                        //Toast.makeText(addDepense.this, "ajout de dépense réussi", Toast.LENGTH_SHORT).show();
-                        break;
-                    default:
-                        Toast.makeText(addDepense.this, "pas de type de dépense sélectionnné", Toast.LENGTH_SHORT).show();
-                        break;
-                }
-            }
-        });
+    public void initViews(){
+        depenseGroup = findViewById(R.id.radioGroup);
+        valeur_euros = findViewById(R.id.valeur_euros_input);
+        depensesSpinner = findViewById(R.id.spDepenses);
+        description = findViewById(R.id.desc_input);
+        makeTransactionButton = findViewById(R.id.makeTransaction);
     }
 
     public void makeCashFlowList(int arrayId){
@@ -105,10 +61,65 @@ public class addDepense extends AppCompatActivity implements AdapterView.OnItemS
         depensesSpinner.setAdapter(adapter);
     }
 
+    public void initDepenseGroup(){
+        depenseGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            if(checkedId == R.id.gain_button){
+                itemRadio = "gain";
+                makeCashFlowList(R.array.gainCategorie);
+            }
+            else if(checkedId == R.id.depense_button){
+                itemRadio = "depense";
+                makeCashFlowList(R.array.depenseCategorie);
+            }
+        });
+    }
+
+    public void initTransactionButton(){
+        makeTransactionButton.setOnClickListener(v -> {
+
+            String currentDate = makeCurrentDate();
+            String descriptionText = description.getText().toString().trim();
+            int valeur = getCurrentValue();
+            if(valeur == 0){
+                return;
+            }
+
+            DBCashHelper dataHelper = new DBCashHelper(addDepense.this);
+
+            switch(itemRadio){
+                case "gain":
+                    dataHelper.addGain(currentDate, valeur, itemDropDown, descriptionText);
+                    break;
+                case "depense":
+                    dataHelper.addDepense(currentDate, valeur, itemDropDown, descriptionText);
+                    break;
+                default:
+                    Toast.makeText(addDepense.this, "pas de type de dépense sélectionnné", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        });
+    }
+
+    public String makeCurrentDate(){
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        String currentDate = sdf.format(currentTime);
+        return currentDate;
+    }
+
+    public int getCurrentValue(){
+        String valeurString = valeur_euros.getText().toString().trim();
+        if(valeurString.isEmpty()){
+            Toast.makeText(addDepense.this, "valeur en euros vide", Toast.LENGTH_SHORT).show();
+            return 0;
+        }
+        int valeur = Integer.valueOf(valeurString);
+        return valeur;
+    }
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         itemDropDown = (String) parent.getItemAtPosition(position);
-        //Toast.makeText(this, itemDropDown, Toast.LENGTH_SHORT).show();
     }
 
     @Override

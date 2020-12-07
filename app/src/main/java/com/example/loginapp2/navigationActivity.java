@@ -25,14 +25,32 @@ public class navigationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
 
+        initViews();
+        initToggle();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        initNavigationView();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(toggle.onOptionsItemSelected(item)){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void initViews(){
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.navView);
+    }
 
+    public void initToggle(){
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+    }
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    public void initNavigationView(){
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -43,7 +61,7 @@ public class navigationActivity extends AppCompatActivity {
                     case R.id.depenses:
                         Intent depenseIntent = new Intent(navigationActivity.this, depenseActivity.class);
                         startActivity(depenseIntent);
-                        Toast.makeText(navigationActivity.this, "Depenses", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(navigationActivity.this, "Depenses", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.revenus:
                         Toast.makeText(navigationActivity.this, "Revenus", Toast.LENGTH_SHORT).show();
@@ -54,12 +72,12 @@ public class navigationActivity extends AppCompatActivity {
                     case R.id.cashflow:
                         Intent intent = new Intent(navigationActivity.this, addDepense.class);
                         startActivity(intent);
-                        Toast.makeText(navigationActivity.this, "Cashflow", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(navigationActivity.this, "Cashflow", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.converter:
                         Intent converterIntent = new Intent(navigationActivity.this, deviseConverterActivity.class);
                         startActivity(converterIntent);
-                        Toast.makeText(navigationActivity.this, "converter", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(navigationActivity.this, "converter", Toast.LENGTH_SHORT).show();
                     case R.id.logout:
                         Toast.makeText(navigationActivity.this, "Logout", Toast.LENGTH_SHORT).show();
                         return true;
@@ -67,13 +85,5 @@ public class navigationActivity extends AppCompatActivity {
                 return true;
             }
         });
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(toggle.onOptionsItemSelected(item)){
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

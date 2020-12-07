@@ -54,18 +54,23 @@ public class signupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        //find views
-        choosePicture = (Button)findViewById(R.id.choosePictureButton);
-        register = (Button)findViewById(R.id.signInButton);
-
-        name = (EditText)findViewById(R.id.nameField);
-        familyName = (EditText)findViewById(R.id.familyNameField);
-        password = (EditText)findViewById(R.id.passwordField);
-        confirmPassword = (EditText)findViewById(R.id.confirmPasswordField);
-        imageSelected = (ImageView)findViewById(R.id.selectedImage);
-
         sharedPrefs = getSharedPreferences(Preferences, Context.MODE_PRIVATE);
+        initViews();
+        initChoosePicture();
+        initRegister();
+    }
 
+    private void initViews(){
+        choosePicture = findViewById(R.id.choosePictureButton);
+        register = findViewById(R.id.signInButton);
+        name = findViewById(R.id.nameField);
+        familyName = findViewById(R.id.familyNameField);
+        password = findViewById(R.id.passwordField);
+        confirmPassword = findViewById(R.id.confirmPasswordField);
+        imageSelected = findViewById(R.id.selectedImage);
+    }
+
+    private void initChoosePicture(){
         choosePicture.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -83,7 +88,9 @@ public class signupActivity extends AppCompatActivity {
                 }
             }
         });
+    }
 
+    private void initRegister(){
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,7 +142,6 @@ public class signupActivity extends AppCompatActivity {
             }
         });
     }
-
 
     private void selectImage(){
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
