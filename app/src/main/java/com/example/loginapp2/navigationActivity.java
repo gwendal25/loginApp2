@@ -56,6 +56,10 @@ public class navigationActivity extends AppCompatActivity {
                         startActivity(intent);
                         Toast.makeText(navigationActivity.this, "Cashflow", Toast.LENGTH_SHORT).show();
                         return true;
+                    case R.id.converter:
+                        Intent converterIntent = new Intent(navigationActivity.this, deviseConverterActivity.class);
+                        startActivity(converterIntent);
+                        Toast.makeText(navigationActivity.this, "converter", Toast.LENGTH_SHORT).show();
                     case R.id.logout:
                         Toast.makeText(navigationActivity.this, "Logout", Toast.LENGTH_SHORT).show();
                         return true;

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.loginapp2">
 
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,10 +12,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LoginApp2">
         <activity
+            android:name=".deviseConverterActivity"
+            android:label="conversion de devise"
+            android:parentActivityName=".navigationActivity" />
+        <activity
             android:name=".addDepense"
             android:label="add cash flow"
             android:parentActivityName=".navigationActivity" />
-        <activity android:name=".depenseActivity" />
+        <activity
+            android:name=".depenseActivity"
+            android:label="depense"
+            android:parentActivityName=".navigationActivity"/>
         <activity
             android:name=".updateActivity"
             android:label="Update book"
@@ -25,9 +34,12 @@
         <activity
             android:name=".librarbyActivity"
             android:label="Librarby" />
-        <activity android:name=".navigationActivity" />
-        <activity android:name=".signupActivity" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".navigationActivity" />
+        <activity
+            android:name=".signupActivity" />
+        <activity
+            android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

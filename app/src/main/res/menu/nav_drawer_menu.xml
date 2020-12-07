@@ -16,6 +16,10 @@
         android:id="@+id/cashflow"
         android:title="Cashflow"></item>
     <item
+        android:id="@+id/converter"
+        android:title="converter"></item>
+    <item
         android:id="@+id/logout"
         android:title="Logout"></item>
+
 </menu>
