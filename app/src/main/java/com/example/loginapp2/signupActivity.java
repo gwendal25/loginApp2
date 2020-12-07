@@ -71,74 +71,68 @@ public class signupActivity extends AppCompatActivity {
     }
 
     private void initChoosePicture(){
-        choosePicture.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                if(ContextCompat.checkSelfPermission(
-                        getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE
-                )!= PackageManager.PERMISSION_GRANTED){
-                    ActivityCompat.requestPermissions(
-                            signupActivity.this,
-                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                            REQUEST_CODE_STORAGE_PERMISSION
-                    );
-                }
-                else{
-                    selectImage();
-                }
+        choosePicture.setOnClickListener(v -> {
+            if(ContextCompat.checkSelfPermission(
+                    getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE
+            )!= PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(
+                        signupActivity.this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        REQUEST_CODE_STORAGE_PERMISSION
+                );
+            }
+            else{
+                selectImage();
             }
         });
     }
 
     private void initRegister(){
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //get the content of the text fields
-                String newName = name.getText().toString();
-                String newFamilyName = familyName.getText().toString();
-                String newPassword = password.getText().toString();
-                String newConfirmPassword = confirmPassword.getText().toString();
+        register.setOnClickListener(v -> {
+            //get the content of the text fields
+            String newName = name.getText().toString();
+            String newFamilyName = familyName.getText().toString();
+            String newPassword = password.getText().toString();
+            String newConfirmPassword = confirmPassword.getText().toString();
 
-                //match the patterns for letter, number and special character
-                Pattern letter = Pattern.compile("[A-Za-z]");
-                Pattern number = Pattern.compile("[0-9]");
-                Pattern specialChar = Pattern.compile("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
-                Matcher hasLetter = letter.matcher(newPassword);
-                Matcher hasNumber = number.matcher(newPassword);
-                Matcher hasSpecialChar = specialChar.matcher(newPassword);
+            //match the patterns for letter, number and special character
+            Pattern letter = Pattern.compile("[A-Za-z]");
+            Pattern number = Pattern.compile("[0-9]");
+            Pattern specialChar = Pattern.compile("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
+            Matcher hasLetter = letter.matcher(newPassword);
+            Matcher hasNumber = number.matcher(newPassword);
+            Matcher hasSpecialChar = specialChar.matcher(newPassword);
 
 
 
-                if(!Objects.equals(newPassword, newConfirmPassword)){
-                    Toast.makeText(getApplicationContext(), "password and confirm pasword must be the same : "+newPassword+", "+newConfirmPassword, Toast.LENGTH_SHORT).show();
-                }
-                else if(newPassword.length() < passwordLength){
-                    Toast.makeText(getApplicationContext(), "password must contains at least 8 characters", Toast.LENGTH_SHORT).show();
-                }
-                else if(!hasLetter.find()){
-                    Toast.makeText(getApplicationContext(), "password must contains at least one letter", Toast.LENGTH_SHORT).show();
-                }
-                else if(!hasNumber.find()){
-                    Toast.makeText(getApplicationContext(), "password must contains at least one number", Toast.LENGTH_SHORT).show();
-                }
-                else if(!hasSpecialChar.find()){
-                    Toast.makeText(getApplicationContext(), "password must contains at least one special character", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    //add the new values to the preferences
-                    SharedPreferences.Editor editor = sharedPrefs.edit();
-                    editor.putString(nameKey, newName);
-                    editor.putString(familyNameKey, newFamilyName);
-                    editor.putString(passwordKey, newPassword);
-                    editor.putBoolean(rememberMeKey, true);
-                    editor.commit();
+            if(!Objects.equals(newPassword, newConfirmPassword)){
+                Toast.makeText(getApplicationContext(), "password and confirm pasword must be the same : "+newPassword+", "+newConfirmPassword, Toast.LENGTH_SHORT).show();
+            }
+            else if(newPassword.length() < passwordLength){
+                Toast.makeText(getApplicationContext(), "password must contains at least 8 characters", Toast.LENGTH_SHORT).show();
+            }
+            else if(!hasLetter.find()){
+                Toast.makeText(getApplicationContext(), "password must contains at least one letter", Toast.LENGTH_SHORT).show();
+            }
+            else if(!hasNumber.find()){
+                Toast.makeText(getApplicationContext(), "password must contains at least one number", Toast.LENGTH_SHORT).show();
+            }
+            else if(!hasSpecialChar.find()){
+                Toast.makeText(getApplicationContext(), "password must contains at least one special character", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                //add the new values to the preferences
+                SharedPreferences.Editor editor = sharedPrefs.edit();
+                editor.putString(nameKey, newName);
+                editor.putString(familyNameKey, newFamilyName);
+                editor.putString(passwordKey, newPassword);
+                editor.putBoolean(rememberMeKey, true);
+                editor.commit();
 
-                    //change view with a little message
-                    Toast.makeText(getApplicationContext(),"preferences changed succesfully", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(signupActivity.this, MainActivity.class);
-                    startActivity(intent);
-                }
+                //change view with a little message
+                Toast.makeText(getApplicationContext(),"preferences changed succesfully", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(signupActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }

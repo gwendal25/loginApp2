@@ -34,49 +34,52 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //find UI elements
-        loginButton = (Button)findViewById(R.id.loginButton);
-        signUpButton = (Button)findViewById(R.id.signUpButton);
-        loginText = (EditText)findViewById(R.id.passwordText);
-        unregisteredText = (TextView)findViewById(R.id.unregisteredText);
-        remememberBox = (CheckBox)findViewById(R.id.rememberMe);
-
-        //obtain sharedPrefs infos
         sharedPrefs = getSharedPreferences(Preferences, Context.MODE_PRIVATE);
+        initViews();
+        initRememberMe();
+        initLoginButton();
+        initSignUpButton();
+    }
+
+    public void initViews(){
+        loginButton = findViewById(R.id.loginButton);
+        signUpButton = findViewById(R.id.signUpButton);
+        loginText = findViewById(R.id.passwordText);
+        unregisteredText = findViewById(R.id.unregisteredText);
+        remememberBox = findViewById(R.id.rememberMe);
+    }
+
+    public void initSignUpButton(){
+        signUpButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, signupActivity.class);
+            startActivity(intent);
+        });
+    }
+
+    public void initRememberMe(){
         String password = sharedPrefs.getString(passwordKey, null);
         boolean rememberMe = sharedPrefs.getBoolean(rememberMekey, false);
-
-        //check if there is a password and remember me is checked
-        if(password != null && rememberMe == true){
+        if(password != null && rememberMe){
             remememberBox.setChecked(true);
         }
+    }
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //get the shared prefs password and the entered password
-                String password = sharedPrefs.getString(passwordKey, null);
-                String enteredPassword = loginText.getText().toString();
+    public void initLoginButton(){
+        loginButton.setOnClickListener(v -> {
+            //get the shared prefs password and the entered password
+            String password = sharedPrefs.getString(passwordKey, null);
+            String enteredPassword = loginText.getText().toString();
 
-                if(password == null){
-                    Toast.makeText(getApplicationContext(), "No user defined yet", Toast.LENGTH_SHORT).show();
-                }
-                else if(enteredPassword.equals(password)){
-                    Toast.makeText(getApplicationContext(), "Redirecting...", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MainActivity.this, navigationActivity.class);
-                    startActivity(intent);
-                }
-                else{
-                    Toast.makeText(getApplicationContext(), "Wrong Credentials : "+enteredPassword, Toast.LENGTH_SHORT).show();
-                }
+            if(password == null){
+                Toast.makeText(getApplicationContext(), "No user defined yet", Toast.LENGTH_SHORT).show();
             }
-        });
-
-        signUpButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, signupActivity.class);
+            else if(enteredPassword.equals(password)){
+                Toast.makeText(getApplicationContext(), "Redirecting...", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, navigationActivity.class);
                 startActivity(intent);
+            }
+            else{
+                Toast.makeText(getApplicationContext(), "Wrong Credentials : "+enteredPassword, Toast.LENGTH_SHORT).show();
             }
         });
     }
