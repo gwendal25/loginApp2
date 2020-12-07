@@ -24,17 +24,6 @@
             android:label="depense"
             android:parentActivityName=".navigationActivity"/>
         <activity
-            android:name=".updateActivity"
-            android:label="Update book"
-            android:parentActivityName=".librarbyActivity" />
-        <activity
-            android:name=".addActivity"
-            android:label="Add book"
-            android:parentActivityName=".librarbyActivity" />
-        <activity
-            android:name=".librarbyActivity"
-            android:label="Librarby" />
-        <activity
             android:name=".navigationActivity" />
         <activity
             android:name=".signupActivity" />

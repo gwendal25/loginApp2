@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         //find UI elements
         loginButton = (Button)findViewById(R.id.loginButton);
         signUpButton = (Button)findViewById(R.id.signUpButton);
-        librarby = (Button)findViewById(R.id.librarbyButton);
         loginText = (EditText)findViewById(R.id.passwordText);
         unregisteredText = (TextView)findViewById(R.id.unregisteredText);
         remememberBox = (CheckBox)findViewById(R.id.rememberMe);
@@ -77,15 +76,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, signupActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        librarby.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "acessing librarby", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this, librarbyActivity.class);
                 startActivity(intent);
             }
         });
